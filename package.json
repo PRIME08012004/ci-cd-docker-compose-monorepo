@@ -9,9 +9,11 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@types/node": "^26.4.1",
     "prettier": "3.9.6",
+    "tsx": "^4.23.13",
     "turbo": "^2.10.12",
-    "typescript": "7.0.2"
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=24"
