@@ -2,10 +2,11 @@ FROM oven/bun:1
 
 WORKDIR /usr/src/app
 
-## Can you optimise this?
-COPY . .
+COPY package.json bun.lock ./
 
-RUN bun install
+RUN bun install --frozen-lockfile
+
+COPY . .
 
 RUN bun run generate:db
 

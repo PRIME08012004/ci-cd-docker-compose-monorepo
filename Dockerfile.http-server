@@ -8,8 +8,6 @@ RUN bun install --frozen-lockfile
 
 COPY . .
 
-RUN bun install
-
 RUN bun run generate:db
 
 EXPOSE 8080
