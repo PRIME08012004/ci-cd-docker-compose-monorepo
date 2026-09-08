@@ -14,7 +14,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile.next
       args:
-        - DB_URL=postgresql://postgres:postgres@postgres:5432/postgres
+        - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
     ports:
       - "3000:3000"
     environment:
@@ -39,7 +39,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
 volumes:
   postgres_data:
