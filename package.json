@@ -2,6 +2,10 @@
   "name": "ci-cd-monorepo-deploy",
   "private": true,
   "scripts": {
+    
+    "start:ws": "cd apps/websocket && bun run index.ts",
+    "generate:db": "cd packages/db && bunx prisma generate",
+    "start:backend": "cd apps/http-server && bun run src/index.ts",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
