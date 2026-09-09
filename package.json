@@ -6,6 +6,7 @@
     "start:ws": "cd apps/ws && bun run index.ts",
     "generate:db": "cd packages/db && bunx prisma generate",
     "start:backend": "cd apps/http-server && bun run src/index.ts",
+    "start:web": "cd apps/web && bun run start",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",

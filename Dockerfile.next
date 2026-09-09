@@ -3,18 +3,26 @@ FROM oven/bun:1
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
 
-WORKDIR /usr/src/app/apps/web
+WORKDIR /usr/src/app
 
 COPY package.json bun.lock ./
+COPY apps/web/package.json apps/web/package.json
 
+# Copy workspace package.json files as needed
+COPY packages ./packages
 
-COPY . .
+COPY turbo.json ./   
 
-RUN bun install 
+COPY apps/web ./apps/web
+
+RUN bun install --frozen-lockfile
+
+WORKDIR /usr/src/app/
+
 RUN bun run generate:db
 
-RUN bunx turbo build --filter=web...
+RUN bun run turbo run build --filter=web...
 
 EXPOSE 3000
 
-CMD ["bun", "run", "start"]
+CMD ["bun", "run", "start:web"]
