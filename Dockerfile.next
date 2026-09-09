@@ -8,7 +8,6 @@ WORKDIR /usr/src/app
 COPY package.json bun.lock ./
 COPY apps/web/package.json apps/web/package.json
 
-# Copy workspace package.json files as needed
 COPY packages ./packages
 
 COPY turbo.json ./   
