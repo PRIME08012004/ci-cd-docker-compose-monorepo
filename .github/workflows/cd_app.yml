@@ -38,25 +38,24 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_KEY_PK }}
           port: 22
-
           script: |
-            echo "Pulling new Docker image..."
+             set -e
 
-            docker pull optimusprime0801/ci-cd-backend:${{ github.sha }}
+             echo "Pulling new Docker image..."
+                 /usr/bin/docker pull optimusprime0801/ci-cd-backend:${{ github.sha }}
 
-            echo "Stopping old container..."
+             echo "Stopping old container..."
+             /usr/bin/docker stop backend || true
+             /usr/bin/docker rm backend || true
 
-            docker stop backend || true
-            docker rm backend || true
-
-            echo "Starting new container..."
-
-            docker run -d \
+              echo "Starting new container..."
+             /usr/bin/docker run -d \
               --name backend \
-              --restart unless-stopped \
-              -p 8080:8080 \
-              optimusprime0801/ci-cd-backend:${{ github.sha }}
+             --restart unless-stopped \
+             -p 8080:8080 \
+             optimusprime0801/ci-cd-backend:${{ github.sha }}
 
-            echo "Deployment complete!"
+             echo "Running containers..."
+                /usr/bin/docker ps
 
-            docker ps
+                echo "Deployment complete!"
