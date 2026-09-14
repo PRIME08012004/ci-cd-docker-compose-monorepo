@@ -1,0 +1,35 @@
+name: Continuous Deployment (Prod) (next-app)
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Verify user  secret
+        run: echo "${{ secrets.DOCKERHUB_USERNAME }}"
+      - name: Verify token secret
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}"  
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        
+        with:
+          context: .
+          file: ./Dockerfile.next
+          push: true
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+         
+          tags: optimusprime0801/ci-cd-next:${{ github.sha }}
