@@ -35,7 +35,7 @@ jobs:
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: 52.90.222.209
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.SSH_KEY_PK }}
           port: 22
 
           script: |
