@@ -44,23 +44,23 @@ jobs:
           port: 22
 
           script: |
-            echo "Pulling new Docker image..."
+             set -e
 
-            docker pull optimusprime0801/ci-cd-ws:${{ github.sha }}
+             echo "Pulling new Docker image..."
+                 /usr/bin/docker pull optimusprime0801/ci-cd-ws:${{ github.sha }}
 
-            echo "Stopping old container..."
+             echo "Stopping old container..."
+             /usr/bin/docker stop ws || true
+             /usr/bin/docker rm ws || true
 
-            docker stop backend || true
-            docker rm backend || true
+              echo "Starting new container..."
+             /usr/bin/docker run -d \
+              --name ws \
+             --restart unless-stopped \
+             -p 8081:8081 \
+             optimusprime0801/ci-cd-ws:${{ github.sha }}
 
-            echo "Starting new container..."
+             echo "Running containers..."
+                /usr/bin/docker ps
 
-            docker run -d \
-              --name backend \
-              --restart unless-stopped \
-              -p 8081:8081 \
-              optimusprime0801/ci-cd-ws:${{ github.sha }}
-
-            echo "Deployment complete!"
-
-            docker ps
+                echo "Deployment complete!"
