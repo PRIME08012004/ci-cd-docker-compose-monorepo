@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.get("/",(req ,res)=>{
     res.json({
-      Msg:"Hello from cd"
+      Msg:"Hello from cd-ci "
     })
 })
 
