@@ -33,3 +33,34 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
          
           tags: optimusprime0801/ci-cd-ws:${{ github.sha }}
+
+     
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: 52.90.222.209
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY_PK }}
+          port: 22
+
+          script: |
+            echo "Pulling new Docker image..."
+
+            docker pull optimusprime0801/ci-cd-ws:${{ github.sha }}
+
+            echo "Stopping old container..."
+
+            docker stop backend || true
+            docker rm backend || true
+
+            echo "Starting new container..."
+
+            docker run -d \
+              --name backend \
+              --restart unless-stopped \
+              -p 8081:8081 \
+              optimusprime0801/ci-cd-ws:${{ github.sha }}
+
+            echo "Deployment complete!"
+
+            docker ps
