@@ -32,4 +32,4 @@ jobs:
           build-args: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
          
-          tags: optimusprime08012004/ci-cd-backend:${{ github.sha }}
+          tags: optimusprime0801/ci-cd-backend:${{ github.sha }}
