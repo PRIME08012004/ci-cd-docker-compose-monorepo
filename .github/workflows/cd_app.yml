@@ -20,6 +20,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./docker/Dockerfile.http-server
+          file: ./Dockerfile.http-server
           push: true
           tags: optimusprime08012004/ci-cd-backend:${{ github.sha }}
